@@ -1,0 +1,203 @@
+#Examen forma A
+#Creativos.cl
+#se importa la carpeta numpy para transformar listas en arreglos
+import numpy as np
+lista=[i for i in range(1,101)]
+arreglo=np.array(lista)
+escenario=arreglo.reshape(10,10)
+Rut=[] #se crea una lista para guardar el run de los asistentes
+lista_ganancia=[]#se crea una lista para almacenar las ganancias 
+cant=[]
+#se definira una funcion para validar el run
+def validar_run(a):
+  while len(a)>8:
+    run=input("Ingrese un run valido: ")
+    if len(run)<=8:
+      break
+  print()
+  return True
+
+#se definira una funcion para comprar entradas
+def comprar():
+  ganancia1=0
+  ganancia2=0
+  ganancia3=0
+  print("Los precios de las entradas son los siguientes")
+  print("1.- Platinum, $120.000. (Asientos del 1 al 20)")
+  print("2.- Gold, $80.000. (Asientos del 21 al 50)")
+  print("3.- Silver, $50.000. (Asientos del 51 al 100)")
+  print()
+  if len(cant)==0:
+    cantidad=int(input("Ingrese la cantidad de entradas que desea comprar: "))
+    print("-----------Escenario----------")
+    print(escenario)
+    print()
+    cant.append(cantidad)
+  elif len(cant)>0:
+    cantidad=int(input("Ingrese la cantidad de entradas que desea comprar: "))
+    print("-----------Escenario----------")
+    arr=np.array(lista)
+    esc=arr.reshape(10,10)
+    print(esc)
+    print()
+    cant.append(cantidad)
+  while cantidad>=1 and cantidad<=3:
+    if cantidad==1:
+      asiento=int(input("Ingrese el numero de asiento que desea comprar: "))
+      if asiento>=1 and asiento<=20:
+        ganancia1+=120000
+      elif asiento>=21 and asiento<=50:
+        ganancia2+=80000
+      elif asiento>=51 and asiento<=100:
+        ganancia3+=50000
+      print("El costo de su seleccion es de:$",ganancia1+ganancia2+ganancia3)
+      lista_ganancia.extend([ganancia1,ganancia2,ganancia3])
+      print()
+      lista.remove(asiento)
+      lista.insert(asiento-1,"x")
+      arr=np.array(lista)
+      esc=arr.reshape(10,10)
+      print("Escenario con asientos comprados")
+      print(esc)
+      print()
+      break
+    elif cantidad==2:
+      asiento1=int(input("Ingrese el numero de primer asiento: "))
+      asiento2=int(input("Ingrese el numero de segundo asiento: "))
+      if asiento1>=1 and asiento1<=20:
+        ganancia1+=120000
+      elif asiento1>=21 and asiento1<=50:
+        ganancia2+=80000
+      elif asiento1>=51 and asiento1<=100:
+        ganancia3+=50000
+      if asiento2>=1 and asiento2<=20:
+        ganancia1+=120000
+      elif asiento2>=21 and asiento2<=50:
+        ganancia2+=80000
+      elif asiento2>=51 and asiento2<=100:
+        ganancia3+=50000
+      print("El costo de su seleccion es de:$",ganancia1+ganancia2+ganancia3)
+      lista_ganancia.extend([ganancia1,ganancia2,ganancia3])
+      print()
+      lista.remove(asiento1)
+      lista.remove(asiento2)
+      lista.insert(asiento1-1,"x")
+      lista.insert(asiento2-1,"x")
+      arr=np.array(lista)
+      esc=arr.reshape(10,10)
+      print("Escenario con asientos comprados")
+      print(esc)
+      print()
+      break
+    elif cantidad==3:
+      asiento1=int(input("Ingrese el numero de primer asiento: "))
+      asiento2=int(input("Ingrese el numero de segundo asiento: "))
+      asiento3=int(input("Ingrese el numero de tercer asiento: "))
+      if asiento1>=1 and asiento1<=20:
+        ganancia1+=120000
+      elif asiento1>=21 and asiento1<=50:
+        ganancia2+=80000
+      elif asiento1>=51 and asiento1<=100:
+        ganancia3+=50000
+      if asiento2>=1 and asiento2<=20:
+        ganancia1+=120000
+      elif asiento2>=21 and asiento2<=50:
+        ganancia2+=80000
+      elif asiento2>=51 and asiento2<=100:
+        ganancia3+=50000
+      if asiento3>=1 and asiento3<=20:
+        ganancia1+=120000
+      elif asiento3>=21 and asiento3<=50:
+        ganancia2+=80000
+      elif asiento3>=51 and asiento3<=100:
+        ganancia3+=50000
+      print("El costo de su seleccion es de:$",ganancia1+ganancia2+ganancia3)
+      lista_ganancia.extend([ganancia1,ganancia2,ganancia3])
+      print()
+      lista.remove(asiento1)
+      lista.remove(asiento2)
+      lista.remove(asiento3)
+      lista.insert(asiento1-1,"x")
+      lista.insert(asiento2-1,"x")
+      lista.insert(asiento3-1,"x")
+      arr=np.array(lista)
+      esc=arr.reshape(10,10)
+      print("Escenario con asientos comprados")
+      print(esc)
+      print()
+      break
+  run=input("Ingrese Run sin puntos ni digito verificador: ")
+  print()
+  if validar_run(run):
+    Rut.append(run)
+    print("Se han ingresado los datos correctamente")
+    print()
+  return 
+
+#se definira funcion para mostrar las ubicaciones disponibles
+def buscar():
+  print("Estado actual de la venta de entradas")
+  print()
+  arr=np.array(lista)
+  esc=arr.reshape(10,10)
+  print("Escenario con asientos comprados")
+  print(esc)
+  print()
+
+#definir funcion para ver la lista de asistentes
+def listado():
+  Rut.sort()
+  for run in Rut:
+    print(run)
+  print()
+  return
+
+#definir funcion para mostrar las ganancias por venta
+def total_ganancia():
+  ganancia_total=np.array(lista_ganancia)
+  arr_cant=np.array(cant)
+  print("Tipo de entradas")
+  print("Platinum $120.000","Cantidad:",lista_ganancia.count(120000),"total:$",lista_ganancia.count(120000)*120000)
+  print("Gold $80.000","Cantidad:",lista_ganancia.count(80000),"total:$",lista_ganancia.count(80000)*80000)
+  print("Silver $50.000","Cantidad:",lista_ganancia.count(50000),"total:$",lista_ganancia.count(50000)*50000)
+  print("Cantidad de entradas vendidas:",arr_cant[:].sum())
+  print("TOTAL: $",ganancia_total[:].sum())
+  print()
+  return
+
+#definir funcion para salir del sistema
+def salir():
+  print("Usted a salido del sistema")
+  print("Hasta Pronto")
+  return
+
+#definir menu del sistema
+def menu():
+  while True:
+    print("Bienvenido a Creativos.cl")
+    print("Este es el sistema para la compra de entradas del concierto de Michale Jim")
+    print("Las opciones son las siguientes")
+    print("1.- Comprar entradas")
+    print("2.- Mostrar ubicacion disponibles")
+    print("3.- Ver listado de asistentes")
+    print("4.- Mostrar ganancias totales")
+    print("5.- Salir de la pagina")
+    print()
+    op=int(input("Ingrese una opcion: "))
+    print()
+    if op==1:
+      comprar()
+    elif op==2:
+      buscar()
+    elif op==3:
+      listado()
+    elif op==4:
+      total_ganancia()
+    elif op==5:
+      salir()
+      break
+    else:
+      print("Opcion no valida, intente nuevamente")
+
+#Iniciar el menu
+menu()
